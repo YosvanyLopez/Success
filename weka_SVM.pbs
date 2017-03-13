@@ -1,0 +1,11 @@
+
+#PBS -j eo
+
+export CLASSPATH=/Users/slal/folder/research/weka-3-8-0/weka.jar
+
+CMD[0]="java -Xmx1024m weka.classifiers.functions.SMO -t feature_matrix.arff -x 10 -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K \"weka.classifiers.functions.supportVector.RBFKernel -C 250007 -G 0.01\" -d SVM_10.model > SVM_10.out"
+CMD[1]="java -Xmx1024m weka.classifiers.functions.SMO -t feature_matrix.arff -x 8 -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K \"weka.classifiers.functions.supportVector.RBFKernel -C 250007 -G 0.01\" -d SVM_8.model > SVM_8.out"
+CMD[2]="java -Xmx1024m weka.classifiers.functions.SMO -t feature_matrix.arff -x 6 -C 1.0 -L 0.0010 -P 1.0E-12 -N 0 -V -1 -W 1 -K \"weka.classifiers.functions.supportVector.RBFKernel -C 250007 -G 0.01\" -d SVM_6.model > SVM_6.out"
+
+ID=$(($PBS_ARRAYID - 1))
+eval ${CMD[$ID]}
